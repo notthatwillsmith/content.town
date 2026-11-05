@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Content Town</title>
+<meta name="description" content="Content Town is a family of fine podcasts: Brad &amp; Will Made a Tech Pod, Take Control of Your Tech, and The FOSSPod.">
+<meta property="og:title" content="Content Town">
+<meta property="og:description" content="Home of the Content.Town family of fine podcasts.">
+<meta property="og:url" content="https://content.town">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0e0f0a">
+<meta name="color-scheme" content="dark light">
+<link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+<link rel="stylesheet" href="https://fonts.bunny.net/css?family=fraunces:400,600,700|schibsted-grotesk:400,500,600,700&amp;display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230d0e0b'/%3E%3Cpath d='M20 80V46l30-22 30 22v34H58V58H42v22z' fill='%23f3f1e6'/%3E%3C/svg%3E">
+<style>
+  /* Palette and type, modeled on the Take Control site. Swap tokens to restyle. */
+  :root {
+    --bg: #0e0f0a;
+    --ink: #f3f1e6;
+    --muted: #9b9a8f;
+    --label: #8c8b74;
+    --card: #131410;
+    --pill: #171813;
+    --line: #2a2b25;
+    --line-strong: #4a4b42;
+    --accent: #6a94e2;
+    --accent-ink: #0e0f0a;
+    --rss: #f5a524;
+    --serif: "Fraunces", Charter, "Iowan Old Style", Georgia, serif;
+    --sans: "Schibsted Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f5f5f0;
+      --ink: #15160f;
+      --muted: #5f5e52;
+      --label: #7a7960;
+      --card: #ffffff;
+      --pill: #faf8f1;
+      --line: #ddd8c8;
+      --line-strong: #b9b39d;
+      --accent: #3f67bf;
+      --accent-ink: #ffffff;
+      --rss: #e08a00;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 17px/1.55 var(--sans);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  main { width: 100%; max-width: 760px; margin: 0 auto; padding: 88px 20px 40px; flex: 1; }
+  header { text-align: center; margin-bottom: 56px; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: .8rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--muted); margin: 0 0 20px;
+  }
+  .eyebrow::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
+  h1 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(2.8rem, 10vw, 5rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    margin: 0 0 16px;
+  }
+  .tagline { color: var(--muted); font-size: 1.3rem; margin: 0; }
+  ul.shows { list-style: none; margin: 0; padding: 0; display: grid; gap: 20px; }
+  .card {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 28px;
+    align-items: start;
+    text-align: left;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 32px 28px 28px;
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  .card:hover, .card:focus-within { border-color: var(--line-strong); transform: translateY(-2px); }
+  .art {
+    display: flex; align-items: center; justify-content: center;
+    grid-column: 2; grid-row: 1 / span 3;
+    width: 144px; height: 144px; margin: 0;
+    border-radius: 22px; overflow: hidden;
+    background: var(--pill); border: 1px solid var(--line);
+  }
+  .art picture { display: contents; }
+  .art img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .art--logo img { object-fit: contain; padding: 12px; }
+  .card h2 { margin: 0 0 10px; font-family: var(--serif); font-weight: 600; font-size: 1.8rem; line-height: 1.15; letter-spacing: -0.01em; }
+  /* The title link stretches over the whole card; listen links sit above it. */
+  .card h2 a { color: inherit; text-decoration: none; }
+  .card h2 a::after { content: ""; position: absolute; inset: 0; border-radius: 24px; }
+  .card h2 a:focus-visible { outline: none; }
+  .card h2 a:focus-visible::after { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .card h2, .card p, .host { grid-column: 1; }
+  .card p { margin: 0 0 10px; color: var(--muted); max-width: 46ch; }
+  .host { display: block; font-size: .9rem; color: var(--accent); font-weight: 600; margin-bottom: 22px; }
+  .listen-label {
+    position: relative; z-index: 1;
+    margin: 0 0 14px;
+    font-family: var(--serif); font-weight: 700; font-size: .8rem;
+    letter-spacing: .18em; text-transform: uppercase; color: var(--label);
+  }
+  .listen { grid-column: 1 / -1; list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 10px; position: relative; z-index: 1; }
+  .listen a {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 46px; padding: 0 20px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--pill);
+    color: var(--ink);
+    text-decoration: none;
+    font-size: .95rem; font-weight: 600;
+    transition: border-color .15s ease, background .15s ease;
+  }
+  .listen a:hover, .listen a:focus-visible { border-color: var(--line-strong); outline: none; }
+  .listen a:focus-visible { box-shadow: 0 0 0 3px var(--accent); }
+  .listen a img { display: block; height: 26px; width: auto; border-radius: 6px; }
+  .card .listen-label--more { margin-top: 20px; }
+  /* The Patreon mark is white; flip it to dark on the light theme. */
+  @media (prefers-color-scheme: light) { .listen a img.mono { filter: invert(1); } }
+  .listen a svg { display: block; width: 22px; height: 22px; fill: var(--rss); }
+  .contact { margin-top: 20px; background: var(--card); border: 1px solid var(--line); border-radius: 24px; padding: 32px 28px 28px; }
+  .contact h2 { margin: 0 0 8px; font-family: var(--serif); font-weight: 600; font-size: 1.8rem; line-height: 1.15; letter-spacing: -0.01em; }
+  .contact .lede { margin: 0 0 24px; color: var(--muted); max-width: 46ch; }
+  .field { display: block; margin-bottom: 16px; }
+  .field span { display: block; margin-bottom: 6px; font-size: .85rem; font-weight: 600; color: var(--muted); }
+  .field input, .field textarea {
+    width: 100%; font: inherit; color: var(--ink);
+    background: var(--pill); border: 1px solid var(--line); border-radius: 14px;
+    padding: 12px 14px;
+  }
+  .field textarea { min-height: 120px; resize: vertical; }
+  .field input:focus, .field textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent); }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .btn { font: inherit; font-weight: 700; min-height: 46px; padding: 0 26px; border: 0; border-radius: 999px; background: var(--accent); color: var(--accent-ink); cursor: pointer; }
+  .btn:hover { filter: brightness(1.08); }
+  .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .btn:disabled { opacity: .6; cursor: default; }
+  .form-status { margin: 14px 0 0; min-height: 1.5em; font-size: .95rem; color: var(--muted); }
+  .form-status[data-state="ok"] { color: var(--ink); }
+  .form-status[data-state="error"] { color: #e5645f; }
+  footer { max-width: 760px; width: 100%; margin: 0 auto; padding: 24px 20px 56px; text-align: center; color: var(--muted); font-size: .9rem; }
+  @media (max-width: 560px) {
+    .card { column-gap: 16px; padding: 24px 20px 22px; }
+    .art { width: 84px; height: 84px; border-radius: 18px; }
+    .card h2 { font-size: 1.4rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { .card, .listen a { transition: none; } .card:hover { transform: none; } }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Welcome to Content Town</h1>
+    <p class="tagline">Home of the Content.Town family of fine podcasts.</p>
+  </header>
+
+  <ul class="shows">
+    <li>
+      <article class="card">
+        <div class="art"><img src="img/techpod.jpg" alt="" width="96" height="96" onerror="this.parentNode.hidden=true"></div>
+        <h2><a href="https://techpod.content.town">Brad &amp; Will Made a Tech Pod</a></h2>
+        <p>Brad Shoemaker and Will Smith dig into a new technology topic every week, from home networks and PC building to games, gadgets and everything in between.</p>
+        <span class="host">techpod.content.town</span>
+        <p class="listen-label">Listen on</p>
+        <ul class="listen" aria-label="Listen to Brad &amp; Will Made a Tech Pod">
+          <li><a href="https://podcasts.apple.com/us/podcast/id1479882159"><img src="img/apple-podcasts.png" alt="Apple Podcasts"></a></li>
+          <li><a href="https://open.spotify.com/show/03YPUjcXPDta8mGghik8Fw"><img src="img/spotify.png" alt="Spotify"></a></li>
+          <li><a href="https://overcast.fm/itunes1479882159"><img src="img/overcast.png" alt="Overcast"></a></li>
+          <li><a href="https://pocketcasts.com/podcast/brad-will-made-a-tech-pod/c715de40-b7b0-0137-0dba-0acc26574db2"><img src="img/pocket-casts.svg" alt="Pocket Casts"></a></li>
+          <li><a href="https://feeds.simplecast.com/qKIEAGzn" aria-label="RSS feed"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="19" r="2.2"/><path d="M3 10v3a8 8 0 0 1 8 8h3A11 11 0 0 0 3 10zm0-7v3a15 15 0 0 1 15 15h3A18 18 0 0 0 3 3z"/></svg></a></li>
+        </ul>
+        <p class="listen-label listen-label--more">Support on</p>
+        <ul class="listen" aria-label="Support Brad &amp; Will Made a Tech Pod">
+          <li><a href="https://patreon.com/techpod"><img class="mono" src="img/patreon.png" alt="Patreon"></a></li>
+        </ul>
+      </article>
+    </li>
+    <li>
+      <article class="card">
+        <div class="art"><img src="img/takecontrol.jpg" alt="" width="96" height="96" onerror="this.parentNode.hidden=true"></div>
+        <h2><a href="https://takecontrol.content.town">Take Control of Your Tech</a></h2>
+        <p>A weekly podcast from Will Smith about making your technology work for you.</p>
+        <span class="host">takecontrol.content.town</span>
+        <p class="listen-label">Watch &amp; listen on</p>
+        <ul class="listen" aria-label="Watch and listen to Take Control of Your Tech">
+          <li><a href="https://podcasts.apple.com/podcast/take-control-of-your-tech/id6823877589"><img src="img/apple-podcasts.png" alt="Apple Podcasts"></a></li>
+          <li><a href="https://overcast.fm/itunes6823877589"><img src="img/overcast.png" alt="Overcast"></a></li>
+          <li><a href="https://youtube.com/playlist?list=PLyVMPIwK_5_gS4NkdgIRvDcr5yxs1sAd8&amp;si=dHDu828Rpc9I7mOv"><img src="img/youtube.svg" alt="YouTube"></a></li>
+          <li><a href="https://pca.st/itunes/6823877589"><img src="img/pocket-casts.svg" alt="Pocket Casts"></a></li>
+          <li><a href="https://feeds.transistor.fm/take-control-of-your-tech" aria-label="RSS feed"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="19" r="2.2"/><path d="M3 10v3a8 8 0 0 1 8 8h3A11 11 0 0 0 3 10zm0-7v3a15 15 0 0 1 15 15h3A18 18 0 0 0 3 3z"/></svg></a></li>
+        </ul>
+      </article>
+    </li>
+    <li>
+      <article class="card">
+        <div class="art"><img src="img/fosspod.jpg" alt="" width="96" height="96" onerror="this.parentNode.hidden=true"></div>
+        <h2><a href="https://fosspod.content.town">The FOSSPod</a></h2>
+        <p>A show about free and open source software and the people building it, from the team behind the Tech Pod.</p>
+        <span class="host">fosspod.content.town</span>
+        <p class="listen-label">Listen on</p>
+        <ul class="listen" aria-label="Listen to The FOSSPod">
+          <li><a href="https://podcasts.apple.com/us/podcast/the-foss-pod/id1607792894"><img src="img/apple-podcasts.png" alt="Apple Podcasts"></a></li>
+          <li><a href="https://overcast.fm/itunes1607792894"><img src="img/overcast.png" alt="Overcast"></a></li>
+          <li><a href="https://pca.st/fg38h4k5"><img src="img/pocket-casts.svg" alt="Pocket Casts"></a></li>
+          <li><a href="https://feeds.simplecast.com/5JzYp_Kp" aria-label="RSS feed"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="19" r="2.2"/><path d="M3 10v3a8 8 0 0 1 8 8h3A11 11 0 0 0 3 10zm0-7v3a15 15 0 0 1 15 15h3A18 18 0 0 0 3 3z"/></svg></a></li>
+        </ul>
+      </article>
+    </li>
+  </ul>
+
+  <section class="contact" id="contact" aria-labelledby="contact-heading">
+    <h2 id="contact-heading">Contact</h2>
+    <p class="lede">Questions, ideas, or just want to say hi? Send us a note.</p>
+    <!-- SETUP: replace YOUR_FORM_ID with the ID of your Formspree form (formspree.io).
+         Set the destination address in Formspree's dashboard, so it never appears on this page. -->
+    <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <input type="hidden" name="_subject" value="Content.town inquiry">
+      <p class="hp" aria-hidden="true"><label>Leave this field empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></p>
+      <label class="field"><span>Your email</span><input type="email" name="email" required autocomplete="email" placeholder="you@example.com"></label>
+      <label class="field"><span>Your note</span><textarea name="message" required maxlength="2000" rows="5" placeholder="What's on your mind?"></textarea></label>
+      <button class="btn" type="submit">Send</button>
+      <p class="form-status" id="contact-status" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+</main>
+<footer>&copy; <span id="y">2026</span> Content Town</footer>
+<script>
+document.getElementById('y').textContent = new Date().getFullYear();
+(function () {
+  var f = document.getElementById('contact-form');
+  if (!f) return;
+  var s = document.getElementById('contact-status'), b = f.querySelector('button');
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    b.disabled = true; s.dataset.state = ''; s.textContent = 'Sending…';
+    fetch(f.action, { method: 'POST', body: new FormData(f), headers: { Accept: 'application/json' } })
+      .then(function (r) { if (!r.ok) throw new Error(); f.reset(); s.dataset.state = 'ok'; s.textContent = 'Thanks! Your note is on its way.'; })
+      .catch(function () { s.dataset.state = 'error'; s.textContent = 'Something went wrong. Please try again in a moment.'; })
+      .then(function () { b.disabled = false; });
+  });
+})();
+</script>
+</body>
+</html>
